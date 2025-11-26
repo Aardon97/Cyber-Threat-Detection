@@ -3,3 +3,6 @@ __pycache__
 .learndata/*.csv
 data/*.db
 *.pkl
+data/*.csv
+data/*.db
+*.pkl
