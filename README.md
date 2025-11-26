@@ -18,6 +18,13 @@ This end-to-end pipeline demonstrates how raw network traffic can be transformed
 - `src/app.py` → Streamlit app
 - `explore.ipynb` → Experimentation notebook
 
+## 📝 Development vs Deployment
+
+- **Exploration & EDA**: The majority of experimentation, cleaning, and model building was carried out in `explore.ipynb`. This notebook serves as the "playground" where hypotheses were tested, features engineered, and models compared.
+- **Deployment**: The final, production-ready code lives in `src/app.py`. This Streamlit app loads the trained model and provides an interactive interface for real-time cyber threat detection.
+- **Why both?**: The notebook documents the full data science process, while the app demonstrates the polished end product. Together they show both the journey and the destination.
+
+
 ## 📊 Features
 - Exploratory Data Analysis (EDA)
 - Model training and evaluation
