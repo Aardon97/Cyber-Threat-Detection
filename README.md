@@ -83,3 +83,14 @@ These results demonstrate that Random Forest provides a reliable balance between
 
 5. Open the app in your browser (default: http://localhost:8501) to interact with the cyber threat detection interface.
 
+## 🔮 Future Work
+While the current pipeline demonstrates strong performance with Random Forest, there are several directions for improvement:
+
+- **Deep Learning Models**: Experiment with neural networks (e.g., LSTMs, CNNs) to capture complex traffic patterns.
+- **Feature Engineering**: Explore domain-specific features (e.g., protocol flags, session statistics) to enhance detection accuracy.
+- **Model Optimization**: While Random Forest hyperparameters were tuned in this project, further optimization could include systematic searches (GridSearchCV, RandomizedSearchCV) and exploring advanced ensemble methods (e.g., XGBoost, LightGBM).
+- **Scalability**: Deploy the system with Docker or Kubernetes for production-ready environments.
+- **Dataset Expansion**: Incorporate additional datasets (e.g., UNSW-NB15, KDD Cup 99) to validate generalizability.
+- **Real-Time Detection**: Integrate streaming data pipelines to detect threats in live network traffic.
+
+These enhancements would strengthen the robustness and applicability of the system in real-world cybersecurity contexts.
