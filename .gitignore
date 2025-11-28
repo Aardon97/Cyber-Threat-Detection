@@ -3,9 +3,10 @@ __pycache__
 .learndata/*.csv
 data/*.db
 *.pkl
+!models/rf_model.pkl
+!rf_model.pkl
 data/*.csv
 data/*.db
-*.pkl
 data/processed/cicids_cleaned.db
 data/processed/cicids_cleaned.db
 data/processed/cicids_cleaned.db
