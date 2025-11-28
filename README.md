@@ -4,6 +4,12 @@
 - GitHub Repository: [https://github.com/Aardon97/Cyber-Threat-Detection](https://github.com/Aardon97/Cyber-Threat-Detection)
 - Deployed Web Application: [https://cyber-threat-detection-7ht3p6skwv4mhwtba5qxar.streamlit.app](https://cyber-threat-detection-7ht3p6skwv4mhwtba5qxar.streamlit.app)
 
+- ### 📦 Cloud Demo Note
+For deployment on **Streamlit Cloud**, this app uses a lightweight demo test set (`X_test_demo.csv`, `y_test_demo.csv`) containing 200 samples.  
+- This ensures reliable performance in the cloud environment without requiring the full CICIDS dataset.  
+- All functionality (predictions, metrics, visualizations) remains intact, but results are based on the demo subset.  
+- The full dataset is used locally in `explore.ipynb` for training and analysis.
+
 ## 🛡️ Project Overview
 This project leverages the CICIDS 2017 dataset to build a machine learning pipeline for detecting cyber threats such as DDoS and PortScan attacks. The workflow includes:
 
