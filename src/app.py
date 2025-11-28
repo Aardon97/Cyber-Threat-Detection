@@ -135,8 +135,9 @@ st.subheader("Confusion Matrix (Test Set)")
 import numpy as np
 
 # Load test data
-X_test = pd.read_csv("data/X_test.csv")   # replace with your actual test set file
-y_test = pd.read_csv("data/y_test.csv")   # replace with your actual labels file
+X_test = pd.read_csv("data/X_test_demo.csv")
+y_test = pd.read_csv("data/y_test_demo.csv")
+
 
 # Clean invalid values before prediction
 X_test = X_test.replace([np.inf, -np.inf], np.nan)
