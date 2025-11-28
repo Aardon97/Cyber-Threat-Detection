@@ -2,10 +2,10 @@ __pycache__
 .env
 .learndata/*.csv
 data/*.db
-*.pkl
+# *.pkl
 data/*.csv
 data/*.db
-*.pkl
+# *.pkl
 data/processed/cicids_cleaned.db
 data/processed/cicids_cleaned.db
 data/processed/cicids_cleaned.db
