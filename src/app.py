@@ -12,7 +12,11 @@ import joblib
 # -------------------------------
 # Load the trained model
 # -------------------------------
-rf_model = joblib.load("rf_model.pkl")
+
+# safer: build the path relative to the app.py file
+MODEL_PATH = os.path.join(os.path.dirname(__file__), "..", "models", "rf_model.pkl")
+rf_model = joblib.load(MODEL_PATH)
+
 
 # Map class indices to attack names
 class_labels = {
