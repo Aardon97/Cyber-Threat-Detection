@@ -2,6 +2,8 @@ from utils import db_connect
 engine = db_connect()
 
 # your code here
+import os
+import joblib
 from sklearn.metrics import confusion_matrix, accuracy_score, precision_score, recall_score, f1_score
 import seaborn as sns
 import matplotlib.pyplot as plt
