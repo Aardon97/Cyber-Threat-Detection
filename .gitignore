@@ -5,8 +5,15 @@ data/*.db
 *.pkl
 !models/rf_model.pkl
 !rf_model.pkl
+
+# Ignore all CSVs in data/ by default
 data/*.csv
+
+# But keep demo test sets
+!data/X_test_demo.csv
+!data/y_test_demo.csv
+
+# Keep ignoring DBs
 data/*.db
 data/processed/cicids_cleaned.db
-data/processed/cicids_cleaned.db
-data/processed/cicids_cleaned.db
+
