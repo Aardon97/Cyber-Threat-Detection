@@ -131,12 +131,22 @@ if st.button("Predict with threshold"):
 
 # Option 3: Confusion Matrix + Metrics
 st.subheader("Confusion Matrix (Test Set)")
+
+import numpy as np
+
+# Load test data
 X_test = pd.read_csv("data/X_test.csv")   # replace with your actual test set file
 y_test = pd.read_csv("data/y_test.csv")   # replace with your actual labels file
 
+# Clean invalid values before prediction
+X_test = X_test.replace([np.inf, -np.inf], np.nan)
+X_test = X_test.fillna(0)
+
+# Run predictions
 y_pred = rf_model.predict(X_test)
 cm = confusion_matrix(y_test, y_pred)
 
+# Plot confusion matrix
 fig, ax = plt.subplots(figsize=(8,6))
 sns.heatmap(cm, annot=True, fmt="d", cmap="Blues",
             xticklabels=[class_labels[c] for c in rf_model.classes_],
@@ -144,10 +154,13 @@ sns.heatmap(cm, annot=True, fmt="d", cmap="Blues",
 ax.set_xlabel("Predicted")
 ax.set_ylabel("Actual")
 st.pyplot(fig)
+st.caption("Note: Rows = actual classes, Columns = predicted classes.")
 
+# Show performance metrics
 st.write("### Model Performance Metrics")
 st.write(f"Accuracy: {accuracy_score(y_test, y_pred):.2f}")
 st.write(f"Precision: {precision_score(y_test, y_pred, average='weighted'):.2f}")
 st.write(f"Recall: {recall_score(y_test, y_pred, average='weighted'):.2f}")
 st.write(f"F1 Score: {f1_score(y_test, y_pred, average='weighted'):.2f}")
+
 
