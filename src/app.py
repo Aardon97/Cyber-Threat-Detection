@@ -1,7 +1,6 @@
 from utils import db_connect
 engine = db_connect()
 
-# your code here
 import os
 import joblib
 from sklearn.metrics import confusion_matrix, accuracy_score, precision_score, recall_score, f1_score
@@ -9,27 +8,21 @@ import seaborn as sns
 import matplotlib.pyplot as plt
 import streamlit as st
 import pandas as pd
-import joblib
 
 # -------------------------------
 # Load the trained model
 # -------------------------------
-
-# safer: build the path relative to the app.py file
 MODEL_PATH = os.path.join(os.path.dirname(__file__), "..", "models", "rf_model.pkl")
 rf_model = joblib.load(MODEL_PATH)
 
+# Debug: show the classes
+st.write("Model classes:", rf_model.classes_)
 
-# Map class indices to attack names
+# Map class indices to attack names (only 3 classes in your model)
 class_labels = {
     0: "Benign",
-    1: "DoS",
-    2: "Exploit",
-    3: "Generic",
-    4: "PortScan",
-    5: "Botnet",
-    6: "Infiltration",
-    7: "Web Attack"
+    1: "DDoS",
+    2: "PortScan"
 }
 
 # -------------------------------
@@ -51,9 +44,6 @@ if uploaded_file is not None:
     probabilities = rf_model.predict_proba(data)
     predictions = rf_model.predict(data)
 
-    # Map numeric predictions to labels
-    labels = [class_labels[p] for p in predictions]
-
     # Apply threshold logic row by row
     adjusted_labels = []
     for i, row in enumerate(probabilities):
@@ -65,13 +55,13 @@ if uploaded_file is not None:
             adjusted_labels.append("Uncertain")
 
     # Build a clean results table with rounding
-    results_df = pd.DataFrame(probabilities, columns=list(class_labels.values()))
+    results_df = pd.DataFrame(probabilities, columns=[class_labels[c] for c in rf_model.classes_])
     results_df = results_df.round(3)
     results_df.insert(0, "Predicted Class", adjusted_labels)
 
     # Highlight only numeric columns
     styled_df = results_df.style.highlight_max(
-        subset=list(class_labels.values()), axis=1, color="lightgreen"
+        subset=[class_labels[c] for c in rf_model.classes_], axis=1, color="lightgreen"
     )
 
     st.write("Prediction results:", styled_df)
@@ -98,14 +88,13 @@ if st.button("Predict from manual input"):
     st.write("Prediction (class label):", class_labels[prediction])
 
     proba_df = pd.DataFrame({
-        "Class": list(class_labels.values()),
+        "Class": [class_labels[c] for c in rf_model.classes_],
         "Probability": [round(p, 3) for p in proba]
     })
     st.write("Prediction probabilities:", proba_df)
-    st.caption("Note: Probabilities are rounded to 3 decimals. The highest probability indicates the predicted class.")
 
     fig, ax = plt.subplots()
-    ax.bar(class_labels.values(), proba)
+    ax.bar([class_labels[c] for c in rf_model.classes_], proba)
     ax.set_ylabel("Probability")
     ax.set_title("Prediction Probability Distribution")
     st.pyplot(fig)
@@ -127,14 +116,13 @@ if st.button("Predict with threshold"):
         st.write(f"Prediction: Below threshold ({round(max_prob,3)}). Classified as 'Uncertain'.")
 
     proba_df = pd.DataFrame({
-        "Class": list(class_labels.values()),
+        "Class": [class_labels[c] for c in rf_model.classes_],
         "Probability": [round(p, 3) for p in proba]
     })
     st.write("Prediction probabilities:", proba_df)
-    st.caption("Note: Adjust the slider to change the cutoff. Predictions below threshold are marked 'Uncertain'.")
 
     fig, ax = plt.subplots()
-    ax.bar(class_labels.values(), proba)
+    ax.bar([class_labels[c] for c in rf_model.classes_], proba)
     ax.axhline(y=threshold, color="red", linestyle="--", label="Threshold")
     ax.set_ylabel("Probability")
     ax.set_title("Prediction Probability Distribution with Threshold")
@@ -151,14 +139,12 @@ cm = confusion_matrix(y_test, y_pred)
 
 fig, ax = plt.subplots(figsize=(8,6))
 sns.heatmap(cm, annot=True, fmt="d", cmap="Blues",
-            xticklabels=list(class_labels.values()),
-            yticklabels=list(class_labels.values()))
+            xticklabels=[class_labels[c] for c in rf_model.classes_],
+            yticklabels=[class_labels[c] for c in rf_model.classes_])
 ax.set_xlabel("Predicted")
 ax.set_ylabel("Actual")
 st.pyplot(fig)
-st.caption("Note: Rows = actual classes, Columns = predicted classes.")
 
-# 👉 Added performance metrics here
 st.write("### Model Performance Metrics")
 st.write(f"Accuracy: {accuracy_score(y_test, y_pred):.2f}")
 st.write(f"Precision: {precision_score(y_test, y_pred, average='weighted'):.2f}")
