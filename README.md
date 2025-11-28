@@ -1,5 +1,9 @@
 # Cyber Threat Detection with CICIDS
 
+🔗 **Deliverables**
+- GitHub Repository: [https://github.com/Aardon97/Cyber-Threat-Detection](https://github.com/Aardon97/Cyber-Threat-Detection)
+- Deployed Web Application: [https://cyber-threat-detection-7ht3p6skwv4mhwtba5qxar.streamlit.app](https://cyber-threat-detection-7ht3p6skwv4mhwtba5qxar.streamlit.app)
+
 ## 🛡️ Project Overview
 This project leverages the CICIDS 2017 dataset to build a machine learning pipeline for detecting cyber threats such as DDoS and PortScan attacks. The workflow includes:
 
